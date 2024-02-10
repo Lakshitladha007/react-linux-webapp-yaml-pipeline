@@ -1,5 +1,5 @@
 trigger:
-- master
+  - master
 
 pool:
   vmImage: ubuntu-latest
@@ -8,46 +8,41 @@ stages:
   - stage: build
     displayName: build
     jobs:
-      - job : 'build'
+      - job: "build"
         displayName: build job
         steps:
           - task: NodeTool@0
             inputs:
-              versionSource: 'spec'
-              versionSpec: '20.x'
+              versionSource: "spec"
+              versionSpec: "20.x"
           - script: |
               npm install
               npm run build --if-present
-            displayName: 'npm install, build'
+            displayName: "npm install, build"
           - task: PublishBuildArtifacts@1
             inputs:
-              PathtoPublish: 'build'
-              ArtifactName: 'drop'
-              publishLocation: 'Container'
-  
+              PathtoPublish: "build"
+              ArtifactName: "drop"
+              publishLocation: "Container"
+
   - stage: deploy
-    displayName: 'Deploy to the dev environment'
+    displayName: "Deploy to the dev environment"
     dependsOn: Build
-    condition:  succeeded()
+    condition: succeeded()
     jobs:
-    - deployment: Deploy
-      environment: dev
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-              - download: current
-                artifact: drop
-              - task: AzureRmWebAppDeployment@4
-                inputs:
-                  ConnectionType: 'AzureRM'
-                  azureSubscription: 'Pay-As-You-Go(1)(91a7faa1-dc40-4598-ac09-d72f572c347a)'
-                  appType: 'webAppLinux'
-                  WebAppName: 'react-yaml-dev'
-                  packageForLinux: '$(Pipeline.Workspace)/drop'
-                  StartupCommand: 'pm2 serve /home/site/wwwroot/ --no-daemon --spa'
-              
-
-
-
-                
+      - deployment: Deploy
+        environment: dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                # - download: current
+                #   artifact: drop
+                - task: AzureRmWebAppDeployment@4
+                  inputs:
+                    ConnectionType: "AzureRM"
+                    azureSubscription: "Pay-As-You-Go(1)(91a7faa1-dc40-4598-ac09-d72f572c347a)"
+                    appType: "webAppLinux"
+                    WebAppName: "react-yaml-dev"
+                    packageForLinux: "$(Pipeline.Workspace)/drop"
+                    StartupCommand: "pm2 serve /home/site/wwwroot/ --no-daemon --spa"
