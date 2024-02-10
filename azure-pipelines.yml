@@ -45,6 +45,9 @@ stages:
                   appType: 'webAppLinux'
                   WebAppName: 'react-yaml-dev'
                   packageForLinux: '$(Pipeline.Workspace)/drop'
+                  StartupCommand: 'pm2 serve /home/site/wwwroot/ --no-daemon --spa'
+              
+
 
 
                 
