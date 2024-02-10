@@ -1,0 +1,27 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: build
+    displayName: build
+    jobs:
+      - job : 'build'
+        displayName: build job
+        steps:
+          - task: Npm@1
+            inputs:
+              command: 'install'
+              workingDir: '20.x'
+          
+          - script: |
+              npm install
+              npm run build --if-present
+            displayName: 'npm install, build'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)/build'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
