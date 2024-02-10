@@ -11,11 +11,10 @@ stages:
       - job : 'build'
         displayName: build job
         steps:
-          - task: Npm@1
+          - task: NodeTool@0
             inputs:
-              command: 'install'
-              workingDir: '20.x'
-          
+              versionSource: 'spec'
+              versionSpec: '20.x'
           - script: |
               npm install
               npm run build --if-present
