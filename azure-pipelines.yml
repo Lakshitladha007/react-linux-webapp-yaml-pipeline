@@ -78,5 +78,5 @@ stages:
                     azureSubscription: "Pay-As-You-Go(1)(91a7faa1-dc40-4598-ac09-d72f572c347a)"
                     appType: "webAppLinux"
                     WebAppName: "react-yaml-dev"
-                    packageForLinux: "$(Pipeline.Workspace)/**/*.zip"
+                    packageForLinux: "$(Pipeline.Workspace)/drop/$(Build.BuildId).zip"
                     StartupCommand: "pm2 serve /home/site/wwwroot/ --no-daemon --spa"
