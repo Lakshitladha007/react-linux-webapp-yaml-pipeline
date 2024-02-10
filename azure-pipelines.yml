@@ -33,18 +33,18 @@ stages:
     - deployment: Deploy
       environment: dev
       strategy:
-      runOnce:
-        deploy:
-          steps:
-            - download: current
-              artifact: drop
-            - task: AzureRmWebAppDeployment@4
-              inputs:
-                ConnectionType: 'AzureRM'
-                azureSubscription: 'Pay-As-You-Go(1)(91a7faa1-dc40-4598-ac09-d72f572c347a)'
-                appType: 'webAppLinux'
-                WebAppName: 'react-yaml-dev'
-                packageForLinux: '$(System.DefaultWorkingDirectory)/drop'
+        runOnce:
+          deploy:
+            steps:
+              - download: current
+                artifact: drop
+              - task: AzureRmWebAppDeployment@4
+                inputs:
+                  ConnectionType: 'AzureRM'
+                  azureSubscription: 'Pay-As-You-Go(1)(91a7faa1-dc40-4598-ac09-d72f572c347a)'
+                  appType: 'webAppLinux'
+                  WebAppName: 'react-yaml-dev'
+                  packageForLinux: '$(System.DefaultWorkingDirectory)/drop'
 
 
                 
