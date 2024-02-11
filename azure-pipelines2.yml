@@ -1,5 +1,4 @@
-trigger:
-  - master
+trigger: none
 
 pool:
   vmImage: ubuntu-latest
@@ -31,6 +30,33 @@ stages:
               PathtoPublish: "$(Build.ArtifactStagingDirectory)"
               ArtifactName: "drop"
               publishLocation: "Container"
+          # - task: PublishBuildArtifacts@1
+          #   inputs:
+          #     PathtoPublish: "build"
+          #     ArtifactName: "drop"
+          #     publishLocation: "Container"
+
+  # - stage: deploy
+  #   displayName: "Deploy to the dev environment"
+  #   dependsOn: Build
+  #   condition: succeeded()
+  #   jobs:
+  #     - deployment: Deploy
+  #       environment: dev
+  #       strategy:
+  #         runOnce:
+  #           deploy:
+  #             steps:
+  #               # - download: current
+  #               #   artifact: drop
+  #               - task: AzureRmWebAppDeployment@4
+  #                 inputs:
+  #                   ConnectionType: "AzureRM"
+  #                   azureSubscription: "Pay-As-You-Go(1)(91a7faa1-dc40-4598-ac09-d72f572c347a)"
+  #                   appType: "webAppLinux"
+  #                   WebAppName: "react-yaml-dev"
+  #                   packageForLinux: "$(Pipeline.Workspace)/drop"
+  #                   StartupCommand: "pm2 serve /home/site/wwwroot/ --no-daemon --spa"
 
   - stage: deploy
     displayName: "Deploy to the dev environment"
@@ -43,6 +69,8 @@ stages:
           runOnce:
             deploy:
               steps:
+                # - download: current
+                #   artifact: drop
                 - task: AzureRmWebAppDeployment@4
                   inputs:
                     ConnectionType: "AzureRM"
@@ -50,5 +78,4 @@ stages:
                     appType: "webAppLinux"
                     WebAppName: "react-yaml-dev"
                     packageForLinux: "$(Pipeline.Workspace)/drop/$(Build.BuildId).zip"
-                    #below StartupCommand is required to run react app in linux environment.
                     StartupCommand: "pm2 serve /home/site/wwwroot/ --no-daemon --spa"
