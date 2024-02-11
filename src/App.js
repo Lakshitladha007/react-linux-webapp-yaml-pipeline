@@ -6,7 +6,12 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>App 10</p>
+        <p>
+          App 11 is running in{" "}
+          {process.env.NODE_ENV != "production"
+            ? process.env.REACT_APP_ENVIRONMENT_LOCAL
+            : process.env.REACT_APP_ENVIRONMENT_PROD}
+        </p>
         <a
           className="App-link"
           href="https://reactjs.org"
