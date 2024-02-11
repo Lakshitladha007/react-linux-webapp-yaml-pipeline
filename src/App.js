@@ -2,12 +2,14 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
+  console.log(process.env.NODE_ENV);
+  console.log(process.env.REACT_APP_ENVIRONMENT_PROD);
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          App 12 is running in{" "}
+          App 13 is running in{" "}
           {process.env.NODE_ENV != "production"
             ? process.env.REACT_APP_ENVIRONMENT_LOCAL
             : process.env.REACT_APP_ENVIRONMENT_PROD}
@@ -23,8 +25,6 @@ function App() {
       </header>
     </div>
   );
-  console.log(process.env.NODE_ENV);
-  console.log(process.env.REACT_APP_ENVIRONMENT_PROD);
 }
 
 export default App;
