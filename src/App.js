@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          App 11 is running in{" "}
+          App 12 is running in{" "}
           {process.env.NODE_ENV != "production"
             ? process.env.REACT_APP_ENVIRONMENT_LOCAL
             : process.env.REACT_APP_ENVIRONMENT_PROD}
@@ -23,6 +23,8 @@ function App() {
       </header>
     </div>
   );
+  console.log(process.env.NODE_ENV);
+  console.log(REACT_APP_ENVIRONMENT_PRODs);
 }
 
 export default App;
