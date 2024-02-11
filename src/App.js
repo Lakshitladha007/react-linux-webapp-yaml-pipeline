@@ -24,7 +24,7 @@ function App() {
     </div>
   );
   console.log(process.env.NODE_ENV);
-  console.log(REACT_APP_ENVIRONMENT_PRODs);
+  console.log(REACT_APP_ENVIRONMENT_PROD);
 }
 
 export default App;
