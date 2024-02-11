@@ -9,10 +9,10 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          App 13 is running in{" "}
+          App 14 is running in{" "}
           {process.env.NODE_ENV != "production"
             ? process.env.REACT_APP_ENVIRONMENT_LOCAL
-            : process.env.REACT_APP_ENVIRONMENT_PROD}
+            : process.env.APP_ENV}
         </p>
         <a
           className="App-link"
