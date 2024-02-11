@@ -45,10 +45,10 @@ stages:
               steps:
                 - task: AzureRmWebAppDeployment@4
                   inputs:
-                    ConnectionType: "AzureRM"
-                    azureSubscription: "Pay-As-You-Go(1)(91a7faa1-dc40-4598-ac09-d72f572c347a)"
-                    appType: "webAppLinux"
-                    WebAppName: "react-yaml-dev"
-                    packageForLinux: "$(Pipeline.Workspace)/drop/$(Build.BuildId).zip"
-                    #below StartupCommand is required to run react app in linux environment.
-                    StartupCommand: "pm2 serve /home/site/wwwroot/ --no-daemon --spa"
+                    ConnectionType: 'AzureRM'
+                    azureSubscription: 'Pay-As-You-Go(1)(91a7faa1-dc40-4598-ac09-d72f572c347a)'
+                    appType: 'webAppLinux'
+                    WebAppName: 'react-yaml-dev'
+                    packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+                    StartupCommand: 'pm2 serve /home/site/wwwroot/ --no-daemon --spa'
+                    AppSettings: '-REACT_APP_ENVIRONMENT_PROD PRODUCTION REACT_APP_ENVIRONMENT_LOCAL "LOCAL"'
