@@ -51,4 +51,4 @@ stages:
                     WebAppName: 'react-yaml-dev'
                     packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
                     StartupCommand: 'pm2 serve /home/site/wwwroot/ --no-daemon --spa'
-                    AppSettings: '-REACT_APP_ENVIRONMENT_PROD PRODUCTION REACT_APP_ENVIRONMENT_LOCAL "LOCAL"'
+                    AppSettings: '-REACT_APP_ENVIRONMENT_PROD PRODUCTION -REACT_APP_ENVIRONMENT_LOCAL "LOCAL"'
