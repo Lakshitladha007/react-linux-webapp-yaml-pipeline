@@ -33,4 +33,4 @@ jobs:
       - name: script multiple lines
         run: |
           echo "hi!!!!"
-          echo "hello world!"
+          echo "hello ${{github.event.inputs.name}}!"
