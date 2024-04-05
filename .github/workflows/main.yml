@@ -3,7 +3,12 @@ name: test_pipeline
 on:
   # to trigger workflow manually
   workflow_dispatch:
-
+    inputs:
+      name:
+        type: string
+        description: Who to greet
+        default: "User"
+        required: true
   # to trigger workflow on code push
   push:
     branches:
