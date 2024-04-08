@@ -1,5 +1,11 @@
 name: test_pipeline
 
+env:
+  AZURE_WEBAPP_NAME: react-yaml-dev # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: "build/" # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: "20.x" # set this to the node version to use
+  REACT_APP_ENVIRONMENT_PROD: "github_prod"
+
 on:
   # to trigger workflow manually
   workflow_dispatch:
@@ -25,6 +31,11 @@ jobs:
       # check out the repository
       - uses: actions/checkout@v4
 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: "20.x"
+
       # single line comment
       - name: script single line
         run: echo "hello world!"
@@ -34,3 +45,17 @@ jobs:
         run: |
           echo "hi!!!!"
           echo "hello ${{github.event.inputs.name}}!"
+
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+
+      - name: "Deploy to Azure Web App"
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
