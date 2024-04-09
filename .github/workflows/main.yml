@@ -4,7 +4,7 @@ env:
   AZURE_WEBAPP_NAME: react-yaml-dev # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: "build/" # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: "20.x" # set this to the node version to use
-  REACT_APP_ENVIRONMENT_PROD: "github_prod"
+  REACT_APP_ENVIRONMENT_PROD: "demo pipeline"
   REACT_APP_ENVIRONMENT_LOCAL: "LOCAL"
 
 on:
