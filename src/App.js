@@ -9,10 +9,11 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          App Avinash Demo is running in{" "}
+          App Demo is running in{" "}
           {process.env.NODE_ENV !== "production"
             ? process.env.REACT_APP_ENVIRONMENT_LOCAL
-            : process.env.REACT_APP_ENVIRONMENT_PROD}
+            : process.env.REACT_APP_ENVIRONMENT_PROD}{" "}
+          with github actions self hosted
         </p>
         <a
           className="App-link"
