@@ -26,7 +26,7 @@ on:
       - master
 jobs:
   job1:
-    runs-on: github-actions-runner
+    runs-on: self-hosted
 
     steps:
       # check out the repository
