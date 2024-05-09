@@ -44,8 +44,9 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      - name: install az cli
-        run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      # install az cli, if not installed
+      # - name: install az cli
+      #   run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
       - name: check az version
         run: az --version
