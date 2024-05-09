@@ -1,8 +1,8 @@
 name: test_pipeline
 
 env:
-  AZURE_WEBAPP_NAME: react-yaml-dev # set this to your application's name
-  AZURE_WEBAPP_RESOURCE_GROUP_NAME: react-yaml-dev-rg
+  AZURE_WEBAPP_NAME: webapp-pte # set this to your application's name
+  AZURE_WEBAPP_RESOURCE_GROUP_NAME: webapp-pte-rg
   AZURE_WEBAPP_PACKAGE_PATH: "build/" # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: "20.x" # set this to the node version to use
   REACT_APP_ENVIRONMENT_PROD: "running from github actions"
@@ -11,23 +11,18 @@ env:
 on:
   # to trigger workflow manually
   workflow_dispatch:
-    inputs:
-      name:
-        type: string
-        description: Who to greet
-        default: "User"
-        required: true
   # to trigger workflow on code push
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
   # to trigger workflow on PRs
-  pull_request:
-    branches:
-      - master
+  # pull_request:
+  #   branches:
+  #     - master
 jobs:
   job1:
-    runs-on: ubuntu-latest
+    # create a self-hosted github action runner
+    runs-on: self-hosted
 
     steps:
       # check out the repository
@@ -54,14 +49,13 @@ jobs:
       - name: Azure login
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS_FOR_PRIVATE_ENDPOINT }}
 
       - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
       - name: Azure CLI script
