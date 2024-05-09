@@ -27,7 +27,7 @@ on:
       - master
 jobs:
   job1:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       # check out the repository
