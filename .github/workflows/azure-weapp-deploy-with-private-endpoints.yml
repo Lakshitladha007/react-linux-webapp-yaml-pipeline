@@ -5,8 +5,7 @@ env:
   AZURE_WEBAPP_RESOURCE_GROUP_NAME: webapp-pte-rg
   AZURE_WEBAPP_PACKAGE_PATH: "build/" # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: "20.x" # set this to the node version to use
-  REACT_APP_ENVIRONMENT_PROD: "running from github actions"
-  REACT_APP_ENVIRONMENT_LOCAL: "LOCAL3"
+  REACT_APP_ENVIRONMENT: "running from github actions in Dev environment"
 
 on:
   # to trigger workflow manually
