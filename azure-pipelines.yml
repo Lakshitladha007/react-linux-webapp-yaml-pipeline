@@ -1,8 +1,12 @@
 trigger:
-  - master
+  - dev
 
 pool:
   vmImage: ubuntu-latest
+
+variables:
+  azureSubscription: "azure-pipelines-azure-sc"
+  webAppName: demo-react-linux-webapp
 
 stages:
   - stage: build
@@ -15,10 +19,12 @@ stages:
             inputs:
               versionSource: "spec"
               versionSpec: "20.x"
+
           - script: |
               npm install
               npm run build --if-present
             displayName: "npm install, build"
+
           - task: ArchiveFiles@2
             inputs:
               rootFolderOrFile: "$(System.DefaultWorkingDirectory)/build"
@@ -26,6 +32,7 @@ stages:
               archiveType: "zip"
               archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
               replaceExistingArchive: true
+
           - task: PublishBuildArtifacts@1
             inputs:
               PathtoPublish: "$(Build.ArtifactStagingDirectory)"
@@ -46,9 +53,9 @@ stages:
                 - task: AzureRmWebAppDeployment@4
                   inputs:
                     ConnectionType: "AzureRM"
-                    azureSubscription: "Pay-As-You-Go(1)(91a7faa1-dc40-4598-ac09-d72f572c347a)"
+                    azureSubscription: "$(azureSubscription)"
                     appType: "webAppLinux"
-                    WebAppName: "react-yaml-dev"
+                    WebAppName: "$(webAppName)"
                     packageForLinux: "$(Pipeline.Workspace)/drop/$(Build.BuildId).zip"
+                    #below StartupCommand is required to run react app in linux environment.
                     StartupCommand: "pm2 serve /home/site/wwwroot/ --no-daemon --spa"
-                    # AppSettings: "-REACT_APP_ENVIRONMENT_PROD PRODUCTION -REACT_APP_ENVIRONMENT_LOCAL LOCAL -APP_ENV TEST"
