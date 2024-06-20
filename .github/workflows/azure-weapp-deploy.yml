@@ -17,13 +17,13 @@ on:
         default: "User"
         required: true
   # to trigger workflow on code push
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - dev
   # to trigger workflow on PRs
-  pull_request:
-    branches:
-      - master
+  # pull_request:
+  #   branches:
+  #     - master
 jobs:
   job1:
     runs-on: ubuntu-latest
