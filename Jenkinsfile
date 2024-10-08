@@ -6,6 +6,7 @@ pipeline {
     AZURE_RESOURCE_GROUP = 'react-webapp-rg'
     WEBAPP_NAME = "react-webapp"
     PACKAGE_NAME = "react-webapp-package.zip"
+    REACT_APP_ENVIRONMENT = "Dev"
   }
     stages {
     stage('Workspace Cleanup') {
@@ -17,7 +18,7 @@ pipeline {
     }
         stage('Checkout Git Branch') {
       steps {
-        git branch: 'main', credentialsId: 'github-credentials', url: 'https://github.com/vprasadreddy/react-linux-webapp-yaml-pipeline.git'
+        git branch: 'master', credentialsId: 'github-credentials', url: 'https://github.com/vprasadreddy/react-linux-webapp-yaml-pipeline.git'
       }
     }
         stage('Package Application') {
