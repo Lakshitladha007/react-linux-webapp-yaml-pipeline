@@ -32,5 +32,17 @@ pipeline {
         }
       }
     }
+        stage('Deploy Build Package') {
+      steps {
+        script {
+          withCredentials([azureServicePrincipal('jenkins-pipeline-sp')]) {
+            sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
+            // sh 'az account show'
+            sh 'az webapp deploy --resource-group ${AZURE_RESOURCE_GROUP} --name ${WEBAPP_NAME} --src-path "${WORKSPACE}/${PACKAGE_NAME}"'
+          }
+        }
+        // azureCLI commands: [[exportVariablesString: '', script: 'az account show']], principalCredentialId: 'jenkins-pipeline-sp'
+      }
+    }
 }
 }
