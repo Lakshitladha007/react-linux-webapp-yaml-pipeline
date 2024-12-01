@@ -7,8 +7,8 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Welcome to React App deployed using Jenkins Pipeline. The app is
-          running in {process.env.REACT_APP_ENVIRONMENT} environment.
+          Welcome to Sahitya's Website. The app is running in{" "}
+          {process.env.REACT_APP_ENVIRONMENT} environment.
         </p>
         <a
           className="App-link"
