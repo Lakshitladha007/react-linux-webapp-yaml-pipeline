@@ -1,61 +1,14 @@
 trigger:
-  - dev
-
-pool:
-  vmImage: ubuntu-latest
-
-variables:
-  azureSubscription: "azure-pipelines-azure-sc"
-  webAppName: demo-react-linux-webapp
-
-stages:
-  - stage: build
-    displayName: build
-    jobs:
-      - job: "build"
-        displayName: build job
-        steps:
-          - task: NodeTool@0
-            inputs:
-              versionSource: "spec"
-              versionSpec: "20.x"
-
-          - script: |
-              npm install
-              npm run build --if-present
-            displayName: "npm install, build"
-
-          - task: ArchiveFiles@2
-            inputs:
-              rootFolderOrFile: "$(System.DefaultWorkingDirectory)/build"
-              includeRootFolder: false
-              archiveType: "zip"
-              archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
-              replaceExistingArchive: true
-
-          - task: PublishBuildArtifacts@1
-            inputs:
-              PathtoPublish: "$(Build.ArtifactStagingDirectory)"
-              ArtifactName: "drop"
-              publishLocation: "Container"
-
-  - stage: deploy
-    displayName: "Deploy to the dev environment"
-    dependsOn: Build
-    condition: succeeded()
-    jobs:
-      - deployment: Deploy
-        environment: dev
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-                - task: AzureRmWebAppDeployment@4
-                  inputs:
-                    ConnectionType: "AzureRM"
-                    azureSubscription: "$(azureSubscription)"
-                    appType: "webAppLinux"
-                    WebAppName: "$(webAppName)"
-                    packageForLinux: "$(Pipeline.Workspace)/drop/$(Build.BuildId).zip"
-                    #below StartupCommand is required to run react app in linux environment.
-                    StartupCommand: "pm2 serve /home/site/wwwroot/ --no-daemon --spa"
+- main
+ 
+pool: Self-Hosted-Pool
+ 
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+ 
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+ 
